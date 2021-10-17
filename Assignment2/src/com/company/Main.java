@@ -1,4 +1,7 @@
 package com.company;
+import java.sql.Timestamp;
+import java.time.Instant;
+import Mainmany.Trial;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,8 +21,15 @@ public class Main {
         }
 
     }
-    public class Comments{
+    public static class Comments{
         String comment;
+        String name;
+        Timestamp stamp;
+        public Comments(String _comments , String _name , Timestamp _stamp){
+            this.comment = _comments;
+            this.name = _name;
+            this.stamp = _stamp;
+        }
     }
     public class Profs{
         int id;
@@ -32,8 +42,10 @@ public class Main {
 
 
     public static void main(String[] args) {
+        Timestamp instant= Timestamp.from(Instant.now());
         Scanner sc = new Scanner(System.in);
         ArrayList<Students> S1 = new ArrayList<>();
+        ArrayList<Comments> C1 = new ArrayList<>();
 
 
         while(true) {
@@ -68,7 +80,7 @@ public class Main {
                             int choice1 = sc.nextInt();
                             if (choice1 == 1) {
                                 System.out.println("Enter the topic of slides ");
-                                String topic = sc.nextLine();
+                                String topic = sc.next();
                                 System.out.println("Enter the number of slides");
                                 int n = sc.nextInt();
                                 //finish up the content part and figure out the addition to the arraylist(or whatever)
@@ -117,10 +129,16 @@ public class Main {
 
                         }
                         else if(menu ==7){
-
+                            for(int co = 0 ; co < C1.size() ; co++){
+                                System.out.println(C1.get(co).name + " " + C1.get(co).comment + " " + C1.get(co).stamp);
+                            }
                         }
                         else if(menu ==8){
-
+                            System.out.println("Add comment ");
+                            String comment = sc.next();
+                            Comments c1 = new Comments(comment , "I0", instant);
+                            C1.add(c1);
+                            System.out.println(comment + " " + "I0" + " " +instant);
                         }
                         else if(menu ==9){
                             break;
