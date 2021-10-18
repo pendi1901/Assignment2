@@ -1,126 +1,159 @@
 package Mainmany;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.ArrayList;
 
-
 public class Trial {
+
+    //Students class(dont change anything)
     public static class Students{
         private final int id;
-        int grade;
         private final String name;
         public Students(int _id ,  String _name){
+            super();
 
             this.id = _id;
             this.name = _name;
         }
-
     }
+
+    //Prof class (try not to change anything)
+    public static class Profs{
+        private final int id;
+        private final String name1;
+        public Profs(int _id, String _name){
+            this.id = _id;
+            this.name1 = _name;
+        }
+    }
+
+    //Comments class (never change anything here)
     public static class Comments{
-        String comment;
-        String name;
-        Date date;
+        private final String comment;
+        private final String name;
+        private final Date date;
         public Comments(String _comments , String _name, Date _date){
             this.comment = _comments;
             this.name = _name;
             this.date = _date;
         }
     }
-    public static class Profs{
-        int id;
-        String name1;
-        public Profs(int _id, String _name){
-            this.id = _id;
-            this.name1 = _name;
+    //Interface 1 material stuff
+    public interface material{
+        void input(String author) throws IOException;
+        void display();
+    }
+    //Lecture Videos implemented from material
+    public static class LecVids implements material {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Date date = new Date() ;
+        private String file;
+        private String name;
+        private String prof;
+        private Date timestamp;
+
+        public LecVids(String _name , Date _timestamp, String _prof, String _file){
+            this.file = _file;
+            this.name = _name;
+            this.prof = _prof;
+            this.timestamp = timestamp;
+        }
+
+        @Override
+        public void display(){
+            System.out.println("Enter the topic of video: " + this.name);
+            System.out.println("Enter filename of the video: " + this.file);
+            System.out.println("Date of upload: " + this.timestamp);
+            System.out.println("Uploaded by: " + this.prof);
+        }
+
+        @Override
+        public void input(String author) throws IOException {
+            System.out.print("Enter the topic of the video: ");
+            String name = br.readLine();
+            System.out.print("Enter the filename of the video: ");
+            String file = br.readLine();
         }
     }
+
+    public static class LecSlides implements material{
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Scanner sc =new Scanner(System.in);
+        Date date = new Date() ;
+        private int number;
+        private String name;
+        private String prof;
+        private Date timestamp;
+
+        public LecSlides(String _name , Date _timestamp, String _prof, int _number){
+            this.number = _number;
+            this.name = _name;
+            this.prof = _prof;
+            this.timestamp = timestamp;
+        }
+
+        @Override
+        public void display(){
+            System.out.println("Enter the topic of video: " + this.name);
+            System.out.println("Enter the number of slides: " + this.number);
+            System.out.println("Date of upload: " + this.timestamp);
+            System.out.println("Uploaded by: " + this.prof);
+        }
+
+        @Override
+        public void input(String author) throws IOException {
+            System.out.print("Enter the topic of the slides: ");
+            String name = br.readLine();
+            System.out.print("Enter the number of slides: ");
+            int number = sc.nextInt();
+
+        }
+
+    }
+
     interface Assessments {
 //        void display(ArrayList<Assignment> A1);
 //        void display(ArrayList<Quiz> Q1);
-        ArrayList<Assignment> A1 = new ArrayList<>();
-        ArrayList<Quiz> Q1 =  new ArrayList<>();
+
     }
-    static class Quiz implements Assessments {
-        int id1;
-        String question;
-        int marks=1;
-        String status;
+    public static class Quiz implements Assessments {
+        private final int id1;
+        private final String question;
+        private int marks=1;
+        private String status;
         public Quiz(int _id1 , String _question  , int _marks, String _status){
             this.id1 = _id1;
             this.marks = _marks;
             this.question = _question;
             this.status = _status;
         }
-
-//        @Override
-        public void display(ArrayList<Assignment> A1) {
-
-        }
-
-
     }
-    static class Assignment implements Assessments{
-        int id1;
-        String question;
-        int marks;
-        String status;
+
+    public static class Assignment implements Assessments{
+        private final int id1;
+        private final String question;
+        private final int marks;
+        private String status;
         public Assignment(int _id1 , String _question  , int _marks , String _status){
             this.id1=_id1;
             this.marks = _marks;
             this.question = _question;
             this.status = _status;
         }
-
-//        @Override
-        public void display(ArrayList<Assessments> A1) {
-
-        }
-
     }
 
-    interface Lecture_material{
 
-    }
-    public class LectureSlides implements Lecture_material{
-        String name;
-        Date timestamp;
-        int number;
-        String prof;
-
-        public LectureSlides(String _name , Date _timestamp ,int _number, String _prof ){
-            this.name = _name;
-            this.timestamp = _timestamp;
-            this.number=_number;
-            this.prof  = _prof;
-
-        }
-
-
-    }
-    public static class LectureVid implements Lecture_material{
-        String name;
-        Date timestamp;
-        String prof;
-        String file;
-        public LectureVid(String _name , Date _timestamp, String _prof, String _file){
-            this.name = _name;
-            this.timestamp = _timestamp;
-            this.file = _file;
-            this.prof = _prof;
-
-        }
-
-    }
     public static class Submissions{
-        int id1;
-        String question;
-        int marks;
-        String name;
-        String file;
-        int grade;
-        String gradestat;
+        private final int id1;
+        private final String question;
+        private final int marks;
+        private final String name;
+        private final String file;
+        private int grade;
+        private String gradestat;
 
         public Submissions(int _id1 , String _question  , int _marks , String _name , String _file , int _grade, String _gradestat){
             this.id1=_id1;
@@ -146,8 +179,8 @@ public class Trial {
         ArrayList<Comments> C1 = new ArrayList<>();
         ArrayList<Quiz> Q1 = new ArrayList<>();
         ArrayList<Assignment> A1 = new ArrayList<>();
-        ArrayList<LectureSlides> Ls1 = new ArrayList<>();
-        ArrayList<LectureVid> Lv1 = new ArrayList<>();
+        ArrayList<LecSlides> Ls1 = new ArrayList<>();
+        ArrayList<LecVids> Lv1 = new ArrayList<>();
         ArrayList<Submissions> Sub = new ArrayList<>();
         int id1 = 0;
 
@@ -226,10 +259,13 @@ public class Trial {
                             String topic = br.readLine();
                             System.out.println("Enter the number of slides");
                             int n = sc.nextInt();
+                            Date timestamp = date;
                             //finish up the content part and figure out the addition to the arraylist(or whatever)
                             for (int sl = 0; sl < n; sl++) {
                                 System.out.println("Content of slide " + sl + ": ");
                                 String content = br.readLine();
+                                LecSlides ls1 = new LecSlides(topic , date , name , n);
+                                Ls1.add(ls1);
 
                             }
 
@@ -240,7 +276,8 @@ public class Trial {
                             System.out.println("Enter the filename of the video");
                             String file = br.readLine();
                             Date timestamp = date;
-                            LectureVid lv1 = new LectureVid(topic,timestamp,name,file);
+                            LecVids lv1 = new LecVids(topic,timestamp,name,file);
+                            Lv1.add(lv1);
                             //addition of the object left
 //                            LectureVid Lw1 = new LectureVid(topic ,timestamp ,name );
 
@@ -300,7 +337,7 @@ public class Trial {
                         }
 //                        count+=1;
                         for(int j =  0 ; j<Q1.size() ; j++){
-                            System.out.println("ID:" + Q1.get(j).id1 + " Question:" + Q1.get(j).question);
+                            System.out.println("ID: " + Q1.get(j).id1 + " Question: " + Q1.get(j).question);
                             count++;
                         }
                     }
@@ -325,13 +362,46 @@ public class Trial {
                         int choice = sc.nextInt();
                         if(choice ==0){
                             name1 = "s0";
+                            for(int k = 0 ; k < Sub.size() ; k++){
+                                if(Sub.get(k).id1 == x &&  Sub.get(k).name == name1 ){
+                                    System.out.println("Submissions");
+                                    System.out.println(Sub.get(k).file);
+                                    System.out.println("Max marks: " + Sub.get(k).marks);
+                                    System.out.println("Marks scored");
+                                    int marks = sc.nextInt();
+                                    Sub.get(k).grade = marks;
+                                    Sub.get(k).gradestat = "GRADED";
+                                }
+                            }
                         }
                         else if(choice == 1){
                             name1 = "s1";
+                            for(int k = 0 ; k < Sub.size() ; k++){
+                                if(Sub.get(k).id1 == x &&  Sub.get(k).name == name1 ){
+                                    System.out.println("Submissions");
+                                    System.out.println(Sub.get(k).file);
+                                    System.out.println("Max marks: " + Sub.get(k).marks);
+                                    System.out.println("Marks scored");
+                                    int marks = sc.nextInt();
+                                    Sub.get(k).grade = marks;
+                                    Sub.get(k).gradestat = "GRADED";
+                                }
+                            }
 
                         }
                         else if(choice==2){
                             name1 = "s2";
+                            for(int k = 0 ; k < Sub.size() ; k++){
+                                if(Sub.get(k).id1 == x &&  Sub.get(k).name == name1 ){
+                                    System.out.println("Submissions");
+                                    System.out.println(Sub.get(k).file);
+                                    System.out.println("Max marks: " + Sub.get(k).marks);
+                                    System.out.println("Marks scored");
+                                    int marks = sc.nextInt();
+                                    Sub.get(k).grade = marks;
+                                    Sub.get(k).gradestat = "GRADED";
+                                }
+                            }
 
                         }
                         for(int k = 0 ; k < Sub.size() ; k++){
@@ -343,8 +413,6 @@ public class Trial {
                                 int marks = sc.nextInt();
                                 Sub.get(k).grade = marks;
                                 Sub.get(k).gradestat = "GRADED";
-
-
                             }
                         }
                     }
@@ -372,16 +440,6 @@ public class Trial {
                                 Q1.get(i).status = "CLOSED";
 
                             }
-                        }
-                        for(int i = 0 ; i < A1.size() ; i++){
-                            System.out.println(A1.get(i).id1);
-                            System.out.println(A1.get(i).status);
-
-                        }
-                        for(int i = 0 ; i < Q1.size() ; i++){
-                            System.out.println(Q1.get(i).id1);
-                            System.out.println(Q1.get(i).status);
-
                         }
                     }
 
